@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">Game</string>
+
+    //Main Activity
+    <string name="createAccountButton">Create Account</string>
+    <string name="loginButton">Login</string>
+
+    //Login, CreateAccount Activity
+    <string name="loginEditText">Login</string>
+    <string name="passwordEditText">Password</string>
+    <string name="loginActOkButton">Login</string>
+    <string name="loginActCancelButton">Cancel</string>
+    <string name="createAccountOkButton">Create Account</string>
+
+</resources>
