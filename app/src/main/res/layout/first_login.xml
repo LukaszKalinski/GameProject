@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/firstLoginTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/firstLoginTextView"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/userNameTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="userName"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@+id/loggedAsTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/loggedAsTextView" />
+
+    <TextView
+        android:id="@+id/loggedAsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/loggedAsTextView"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/userNameTextView"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstLoginTextView" />
+
+    <Button
+        android:id="@+id/firstVillageType"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/mountain_icon"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ycoordFirstVillage" />
+
+    <Button
+        android:id="@+id/secondVillageType"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/river_icon"
+        app:layout_constraintStart_toStartOf="@+id/firstVillageType"
+        app:layout_constraintTop_toBottomOf="@+id/firstVillageType" />
+
+    <Button
+        android:id="@+id/thirdVillageType"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/woods_icon"
+        app:layout_constraintStart_toStartOf="@+id/secondVillageType"
+        app:layout_constraintTop_toBottomOf="@+id/secondVillageType" />
+
+    <TextView
+        android:id="@+id/firstVillageTypeDesc"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Description of village type."
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/firstVillageType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/firstVillageType" />
+
+    <TextView
+        android:id="@+id/secondVillageTypeDesc"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Description of village type."
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/secondVillageType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/secondVillageType" />
+
+    <TextView
+        android:id="@+id/thirdVillageTypeDesc"
+        android:layout_width="0dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Description of village type."
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/thirdVillageType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/thirdVillageType" />
+
+    <TextView
+        android:id="@+id/coordinatesTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginLeft="32dp"
+        android:layout_marginTop="10dp"
+        android:text="@string/coordinatesTextView"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loggedAsTextView" />
+
+    <TextView
+        android:id="@+id/xcoordFirstVillage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="x = 0"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/coordinatesTextView"
+        app:layout_constraintStart_toEndOf="@+id/coordinatesTextView" />
+
+    <TextView
+        android:id="@+id/ycoordFirstVillage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:text="y = 0"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="@+id/xcoordFirstVillage"
+        app:layout_constraintTop_toBottomOf="@+id/xcoordFirstVillage" />
+
+    <Button
+        android:id="@+id/firstVillageButton"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/colorPrimary"
+        android:text="@string/firstVillageButton"
+        android:textSize="30sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/chosenVillageType" />
+
+    <TextView
+        android:id="@+id/chosenVillageType"
+        android:layout_width="326dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="20dp"
+        android:gravity="right|center_vertical"
+        android:text="@string/chosenVillageType"
+        android:textSize="18sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/thirdVillageType" />
+
+    <TextView
+        android:id="@+id/chosenVillageTypeNumber"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
+        android:text="1"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/chosenVillageType"
+        app:layout_constraintStart_toEndOf="@+id/chosenVillageType" />
+
+</android.support.constraint.ConstraintLayout>

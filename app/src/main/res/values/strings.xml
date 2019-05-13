@@ -12,4 +12,12 @@
     <string name="loginActCancelButton">Cancel</string>
     <string name="createAccountOkButton">Create Account</string>
 
+    //FirstLogin
+    <string name="loggedAsTextView">Logged as: </string>
+    <string name="coordinatesTextView">Random coordinates:</string>
+    <string name="firstLoginTextView">Create First Village!</string>
+    <string name="chosenVillageType">You have chosen village number: </string>
+    <string name="firstVillageButton">CREATE VILLAGE</string>
+
+
 </resources>

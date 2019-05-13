@@ -1,5 +1,6 @@
 package com.example.game;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -44,9 +45,11 @@ public class LoginActivity extends AppCompatActivity {
 
                         if(dbUser.Login(username.getText().toString(), password.getText().toString()))
                         {
-                            //TODO put method after succesfull login
                             loggedUserName = username.getText().toString();
                             Toast.makeText(LoginActivity.this,"Successfully Logged In As Player: " + loggedUserName, Toast.LENGTH_LONG).show();
+                            Intent intent = new Intent(LoginActivity.this, FirstLogin.class);
+                            startActivity(intent);
+
                         }else{
                             Toast.makeText(LoginActivity.this,"Invalid Username/Password", Toast.LENGTH_LONG).show();
                         }
