@@ -19,5 +19,10 @@
     <string name="chosenVillageType">You have chosen village number: </string>
     <string name="firstVillageButton">CREATE VILLAGE</string>
 
+    //GamePlay
+    <string name="gamePlay">Game Play</string>
+    <string name="buildingsList">Existing buildings list:</string>
+    <string name="raiseBuildLevelBtn">raise by 1 level</string>
+
 
 </resources>

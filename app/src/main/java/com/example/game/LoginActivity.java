@@ -47,6 +47,7 @@ public class LoginActivity extends AppCompatActivity {
                         {
                             loggedUserName = username.getText().toString();
                             Toast.makeText(LoginActivity.this,"Successfully Logged In As Player: " + loggedUserName, Toast.LENGTH_LONG).show();
+
                             Intent intent = new Intent(LoginActivity.this, FirstLogin.class);
                             startActivity(intent);
 

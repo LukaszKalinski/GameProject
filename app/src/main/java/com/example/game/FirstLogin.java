@@ -110,6 +110,8 @@ public class FirstLogin extends AppCompatActivity {
 
                         //TODO create databases with villages
 
+
+
                         Intent intent = new Intent(FirstLogin.this, GamePlay.class);
                         startActivity(intent);
                     }

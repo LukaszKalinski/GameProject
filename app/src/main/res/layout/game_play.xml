@@ -6,15 +6,59 @@
     android:layout_height="match_parent">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/gamePlayHeader"
         android:layout_width="194dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
-        android:text="Game Play"
+        android:text="@string/gamePlay"
         android:textSize="30sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/buildingListHeader"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/buildingsList"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/gamePlayHeader" />
+
+    <ListView
+        android:id="@+id/buildingsListView"
+        android:layout_width="351dp"
+        android:layout_height="378dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/buildingListHeader" />
+
+    <Button
+        android:id="@+id/raiseBuildLevelBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="33dp"
+        android:text="@string/raiseBuildLevelBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/whatBuildToRaise"
+        app:layout_constraintTop_toBottomOf="@+id/buildingsListView" />
+
+    <TextView
+        android:id="@+id/whatBuildToRaise"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="whatBuilding?"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/raiseBuildLevelBtn"
+        app:layout_constraintEnd_toStartOf="@+id/raiseBuildLevelBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
 </android.support.constraint.ConstraintLayout>
