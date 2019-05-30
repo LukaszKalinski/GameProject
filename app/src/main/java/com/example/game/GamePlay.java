@@ -7,19 +7,31 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import static com.example.game.FirstLogin.firstChosenVillageType;
-import static com.example.game.LoginActivity.loggedUserName;
 
 public class GamePlay extends AppCompatActivity {
 
     BuildingsDatabase buildingsDatabase = new BuildingsDatabase(this);
     GoodsDatabase goodsDatabase = new GoodsDatabase(this);
+    VillagesDatabase villageDatabase = new VillagesDatabase(this);
+    UserDetailDatabase userDb = new UserDetailDatabase(this);
+    TextView gamePlayHeader;
     ListView buildingsListView;
-    String[][] buildings;
     ArrayAdapter buildingListAdapter;
-    String[] goodsQuant;
+    public String[][] buildings;
+    public String[] goodsQuant;
+    public String[] villageType;
+    public String[] userDatas;
+
+    TextView stoneQuantTextView;
+    TextView woodQuantTextView;
+    TextView foodQuantTextView;
+    TextView waterQuantTextView;
+    Button raisingGoodsBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,13 +39,19 @@ public class GamePlay extends AppCompatActivity {
         setContentView(R.layout.game_play);
 
         buildingsListView = (ListView) findViewById(R.id.buildingsListView);
+        gamePlayHeader = (TextView) findViewById(R.id.gamePlayHeader);
+        stoneQuantTextView = (TextView) findViewById(R.id.stoneQuantTextView);
+        woodQuantTextView = (TextView) findViewById(R.id.woodQuantTextView);
+        foodQuantTextView = (TextView) findViewById(R.id.foodQuantTextView);
+        waterQuantTextView = (TextView) findViewById(R.id.waterQuantTextView);
+        raisingGoodsBtn = (Button) findViewById(R.id.raisingGoods);
 
-        System.out.println("Logged as: " + loggedUserName);
-        System.out.println("Village type is: " + firstChosenVillageType.getType());
-        System.out.println("xCoord is: " + String.valueOf(firstChosenVillageType.coordX));
-        System.out.println("yCoord is: " + String.valueOf(firstChosenVillageType.coordY));
+        getUserData();
+        gamePlayHeader.setText("Logged as player: " + userDatas[0]);
 
+        getVillageType();
         getGoodsQuant();
+
         createAndFillDb();
 
         refreshingBuildingsList();
@@ -46,7 +64,14 @@ public class GamePlay extends AppCompatActivity {
                 sendingListViewPosition(listViewPosition);
             }
         });
-        
+
+        raisingGoodsBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+               raiseGoodsQuant();
+            }
+        });
+
     }
 
     @Override
@@ -69,7 +94,7 @@ public class GamePlay extends AppCompatActivity {
                     "Quarry",
                     String.valueOf(firstChosenVillageType.coordX),
                     String.valueOf(firstChosenVillageType.coordY),
-                    "0",
+                    "1",
                     "QuarryMakeStones",
                     "Stone",
                     "300"
@@ -79,7 +104,7 @@ public class GamePlay extends AppCompatActivity {
                     "Forester",
                     String.valueOf(firstChosenVillageType.coordX),
                     String.valueOf(firstChosenVillageType.coordY),
-                    "0",
+                    "1",
                     "ForesterMakeWoods",
                     "Wood",
                     "300"
@@ -89,17 +114,16 @@ public class GamePlay extends AppCompatActivity {
                     "Homestead",
                     String.valueOf(firstChosenVillageType.coordX),
                     String.valueOf(firstChosenVillageType.coordY),
-                    "0",
+                    "1",
                     "HomesteadMakeFood",
                     "Food",
                     "300"
             );
-
             buildingsDatabase.AddBuilding(
                     "Deep well",
                     String.valueOf(firstChosenVillageType.coordX),
                     String.valueOf(firstChosenVillageType.coordY),
-                    "0",
+                    "1",
                     "DeepWellMakeWater",
                     "Water",
                     "300"
@@ -181,6 +205,10 @@ public class GamePlay extends AppCompatActivity {
         goodsQuant[3] = cursor.getString(waterQuant);
         cursor.close();
         goodsDatabase.close();
+        stoneQuantTextView.setText(String.valueOf(goodsQuant[0]));
+        woodQuantTextView.setText(String.valueOf(goodsQuant[1]));
+        foodQuantTextView.setText(String.valueOf(goodsQuant[2]));
+        waterQuantTextView.setText(String.valueOf(goodsQuant[3]));
         System.out.println("Stone quant: " + goodsQuant[0] + ", wood: " + goodsQuant[1] + ", food: " + goodsQuant[2] + ", water: " + goodsQuant[3]);
     }
 
@@ -193,6 +221,57 @@ public class GamePlay extends AppCompatActivity {
         goodsDatabase.raiseGoods(Integer.parseInt(goodsQuant[0]),Integer.parseInt(goodsQuant[1]),Integer.parseInt(goodsQuant[2]),Integer.parseInt(goodsQuant[3]),newStoneQuant, newWoodQuant, newFoodQuant, newWaterQuant);
         goodsDatabase.close();
         getGoodsQuant();
+        stoneQuantTextView.setText(String.valueOf(goodsQuant[0]));
+        woodQuantTextView.setText(String.valueOf(goodsQuant[1]));
+        foodQuantTextView.setText(String.valueOf(goodsQuant[2]));
+        waterQuantTextView.setText(String.valueOf(goodsQuant[3]));
 //        System.out.println("Stone quant: " + goodsQuant[0] + ", wood: " + goodsQuant[1] + ", food: " + goodsQuant[2] + ", water: " + goodsQuant[3]);
+    }
+
+    public void getVillageType(){
+        int stoneIndex = 2;
+        int woodIndex = 3;
+        int foodIndex = 4;
+        int waterIndex = 5;
+        int silverIndex = 7;
+        int goldIndex = 6;
+        int artifactIndex = 8;
+        villageDatabase.open();
+        Cursor cursor = villageDatabase.getRecords();
+        villageType = new String[7];
+        cursor.moveToFirst();
+        villageType[0] = cursor.getString(stoneIndex);
+        villageType[1] = cursor.getString(woodIndex);
+        villageType[2] = cursor.getString(foodIndex);
+        villageType[3] = cursor.getString(waterIndex);
+        villageType[4] = cursor.getString(silverIndex);
+        villageType[5] = cursor.getString(goldIndex);
+        villageType[6] = cursor.getString(artifactIndex);
+        villageDatabase.close();
+        System.out.println("VillageDB - Stone Index: " + villageType[0] +
+                        ", Wood Index: " + villageType[1] +
+                        ", Food Index: " + villageType[2] +
+                        ", Water Index: " + villageType[3] +
+                        ", Silver Index: " + villageType[4] +
+                        ", Gold Index: " + villageType[5] +
+                        ", Artifact Index: " + villageType[6]
+
+                );
+    }
+
+    public void getUserData(){
+        userDb.open();
+        Cursor cursor = userDb.getRecords();
+        cursor.moveToFirst();
+        userDatas = new String[4];
+                userDatas[0] = cursor.getString(1);
+                userDatas[1] = cursor.getString(2);
+                userDatas[2] = cursor.getString(3);
+                userDatas[3] = cursor.getString(4);
+        userDb.close();
+        System.out.println("User: " + userDatas[0] +
+                ", village: " + userDatas[1] +
+                ", xCoord: " + userDatas[2] +
+                ", yCoord: " + userDatas[3]);
     }
 }

@@ -7,7 +7,7 @@
 
     <TextView
         android:id="@+id/gamePlayHeader"
-        android:layout_width="194dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:gravity="center"
@@ -22,8 +22,19 @@
         android:id="@+id/buildingListHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:text="@string/buildingsList"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/raisingGoods" />
+
+    <TextView
+        android:id="@+id/availableGoods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="@string/availableGoods"
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
@@ -39,5 +50,109 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/buildingListHeader" />
+
+    <TextView
+        android:id="@+id/good1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:text="Stone:"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/availableGoods" />
+
+    <TextView
+        android:id="@+id/good3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="20dp"
+        android:text="Food:"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/good1" />
+
+    <TextView
+        android:id="@+id/good2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginLeft="180dp"
+        android:text="Wood:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/good1"
+        app:layout_constraintStart_toStartOf="@+id/good1" />
+
+    <TextView
+        android:id="@+id/good4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="180dp"
+        android:layout_marginLeft="180dp"
+        android:text="Water:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/good3"
+        app:layout_constraintStart_toStartOf="@+id/good1" />
+
+    <TextView
+        android:id="@+id/stoneQuantTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="20dp"
+        android:text="Stone:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/good1"
+        app:layout_constraintStart_toEndOf="@+id/good1" />
+
+    <TextView
+        android:id="@+id/foodQuantTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:text="Stone:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/good3"
+        app:layout_constraintStart_toEndOf="@+id/good1" />
+
+    <TextView
+        android:id="@+id/woodQuantTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="20dp"
+        android:text="Stone:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/good2"
+        app:layout_constraintStart_toEndOf="@+id/good2" />
+
+    <TextView
+        android:id="@+id/waterQuantTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginLeft="24dp"
+        android:text="Stone:"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@+id/good4"
+        app:layout_constraintStart_toEndOf="@+id/good2" />
+
+    <Button
+        android:id="@+id/raisingGoods"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/colorPrimary"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:text="Add Goods"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.904"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/good4" />
 
 </android.support.constraint.ConstraintLayout>

@@ -25,6 +25,8 @@ public class FirstLogin extends AppCompatActivity {
     Button thirdVillageType;
     public static VillageType firstChosenVillageType;
     GoodsDatabase goodsDatabase = new GoodsDatabase(this);
+    VillagesDatabase villageDatabase = new VillagesDatabase(this);
+    UserDetailDatabase userDetailDatabase = new UserDetailDatabase(this);
 
 
     @Override
@@ -109,28 +111,46 @@ public class FirstLogin extends AppCompatActivity {
 
                         }
 
-                        //TODO create databases with villages
-
-
-
+                        createFirstVillageType();
+                        createUserDetails(loggedUserName, firstChosenVillageType.getType(), firstChosenVillageType.coordX, firstChosenVillageType.coordY);
                         Intent intent = new Intent(FirstLogin.this, GamePlay.class);
                         startActivity(intent);
                     }
                 }
             });
 
-        createFirstGoodsDb();
+            createFirstGoodsDb();
 
     }
 
     public void createFirstGoodsDb(){
         goodsDatabase.open();
-        if (goodsDatabase.getRecords().getCount()>1){
+        if (goodsDatabase.getRecords().getCount()>0){
             System.out.println("Goods Database already exists");
         } else {
             int startingValue = 1000;
-            goodsDatabase.AddGoodsFirstTime(startingValue, startingValue + 1, startingValue + 2, startingValue + 3);
+            goodsDatabase.AddGoodsFirstTime(startingValue, startingValue, startingValue , startingValue );
         }
         goodsDatabase.close();
+    }
+
+    public void createFirstVillageType(){
+        villageDatabase.open();
+        if (villageDatabase.getRecords().getCount()>0){
+            System.out.println("Village Database already exists");
+        } else {
+            villageDatabase.AddVillageType(firstChosenVillageType);
+        }
+        villageDatabase.close();
+    }
+
+    public void createUserDetails(String login, String villageType, int xCoord, int yCoord){
+        userDetailDatabase.open();
+        if (userDetailDatabase.getRecords().getCount()>0){
+            System.out.println("User Details Database already exists");
+        } else {
+            userDetailDatabase.AddData(login, villageType, xCoord, yCoord);
+        }
+        userDetailDatabase.close();
     }
 }

@@ -21,7 +21,8 @@
 
     //GamePlay
     <string name="gamePlay">Game Play</string>
-    <string name="buildingsList">Existing buildings list:</string>
+    <string name="buildingsList">Existing buildings list: </string>
+    <string name="availableGoods">Available Goods: </string>
 
     //Building Detail
     <string name="buildingDetailDescription">Description: </string>
