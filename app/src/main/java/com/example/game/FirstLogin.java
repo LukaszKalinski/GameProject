@@ -24,6 +24,7 @@ public class FirstLogin extends AppCompatActivity {
     Button secondVillageType;
     Button thirdVillageType;
     public static VillageType firstChosenVillageType;
+    GoodsDatabase goodsDatabase = new GoodsDatabase(this);
 
 
     @Override
@@ -118,5 +119,18 @@ public class FirstLogin extends AppCompatActivity {
                 }
             });
 
+        createFirstGoodsDb();
+
+    }
+
+    public void createFirstGoodsDb(){
+        goodsDatabase.open();
+        if (goodsDatabase.getRecords().getCount()>1){
+            System.out.println("Goods Database already exists");
+        } else {
+            int startingValue = 1000;
+            goodsDatabase.AddGoodsFirstTime(startingValue, startingValue + 1, startingValue + 2, startingValue + 3);
+        }
+        goodsDatabase.close();
     }
 }

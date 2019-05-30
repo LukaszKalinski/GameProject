@@ -104,28 +104,14 @@ public class BuildingsDatabase {
             return cursor;
         }
 
-        public String getRecordByXCoords(String xCoord){
-        String xCoords;
-            String query = "SELECT * FROM " + DATABASE_TABLE + " WHERE " + KEY_XCOORD + " = ?";
-            Cursor cursor = db.rawQuery(query, new String[] {xCoord});
-            if (cursor.getCount()<1){
-                cursor.close();
-                xCoords = "not found";
-                return xCoords;
-            } else {
-                cursor.moveToFirst();
-                xCoords = cursor.getString(cursor.getColumnIndex(KEY_XCOORD));
-                cursor.close();
-                return xCoords;
-            }
-        }
-
-        public void raiseCurrentBuildingLevelByOne(String name, int currentLevel){
-        String[] names = new String[] {name};
-        ContentValues newLevel = new ContentValues();
-        newLevel.put(KEY_LEVEL, String.valueOf(currentLevel + 1));
-        db.update(DATABASE_TABLE, newLevel, KEY_BUILDINGNAME + "=?", names);
-
+        public void raiseCurrentBuildingLevelByOne(String name, int currentLevel, int productionTime){
+            String[] names = new String[] {name};
+            ContentValues newLevel = new ContentValues();
+            newLevel.put(KEY_LEVEL, String.valueOf(currentLevel + 1));
+            db.update(DATABASE_TABLE, newLevel, KEY_BUILDINGNAME + "=?", names);
+            ContentValues newProductionTime = new ContentValues();
+            newProductionTime.put(KEY_PRODUCTIONTIME, String.valueOf(productionTime/(currentLevel+1)));
+            db.update(DATABASE_TABLE, newProductionTime, KEY_BUILDINGNAME + "=?", names);
         }
 
     }

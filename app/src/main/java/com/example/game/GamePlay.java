@@ -1,11 +1,12 @@
 package com.example.game;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
 import static com.example.game.FirstLogin.firstChosenVillageType;
@@ -14,9 +15,11 @@ import static com.example.game.LoginActivity.loggedUserName;
 public class GamePlay extends AppCompatActivity {
 
     BuildingsDatabase buildingsDatabase = new BuildingsDatabase(this);
+    GoodsDatabase goodsDatabase = new GoodsDatabase(this);
     ListView buildingsListView;
-    Button raiseBuildLevelBtn;
     String[][] buildings;
+    ArrayAdapter buildingListAdapter;
+    String[] goodsQuant;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +27,39 @@ public class GamePlay extends AppCompatActivity {
         setContentView(R.layout.game_play);
 
         buildingsListView = (ListView) findViewById(R.id.buildingsListView);
-        raiseBuildLevelBtn = (Button) findViewById(R.id.raiseBuildLevelBtn);
 
         System.out.println("Logged as: " + loggedUserName);
         System.out.println("Village type is: " + firstChosenVillageType.getType());
         System.out.println("xCoord is: " + String.valueOf(firstChosenVillageType.coordX));
         System.out.println("yCoord is: " + String.valueOf(firstChosenVillageType.coordY));
 
-    //Creating & filling database
+        getGoodsQuant();
+        createAndFillDb();
+
+        refreshingBuildingsList();
+        addingBuildingsToListView();
+
+        buildingsListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                String listViewPosition = String.valueOf(position);
+                sendingListViewPosition(listViewPosition);
+            }
+        });
+        
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        refreshingBuildingsList();
+        addingBuildingsToListView();
+
+
+    }
+
+    public void createAndFillDb(){
+        //Creating & filling database
 
         buildingsDatabase.open();
         if (buildingsDatabase.getRecords().getCount()==0){
@@ -76,27 +104,18 @@ public class GamePlay extends AppCompatActivity {
                     "Water",
                     "300"
             );
+            buildingsDatabase.close();
 
         } else {
-            //if it's already exist
-            System.out.println("DATABASE IS ALREADY CREATED");
-            System.out.println("Database has records: " + buildingsDatabase.getRecords().getCount());
+//            if it's already exist
+//            System.out.println("DATABASE IS ALREADY CREATED");
+//            System.out.println("Database has records: " + buildingsDatabase.getRecords().getCount());
 
         }
-
-        refreshingBuildingsList();
-        addingBuildingsToListView();
-
-        raiseBuildLevelBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                raiseBuildingLevel(String.valueOf(buildings[0][0]), Integer.parseInt(buildings[0][1]));
-            }
-        });
-
     }
 
     public void refreshingBuildingsList(){
+        buildingsDatabase.open();
         int xCoordColumnName = 1;
         int yCoordColumnName = 2;
         int nameColumnIndex = 3;
@@ -121,7 +140,7 @@ public class GamePlay extends AppCompatActivity {
         cursor.close();
         buildingsDatabase.close();
 
-        System.out.println("REFRESHED BUILDING LIST");
+//        System.out.println("REFRESHED BUILDING LIST");
     }
 
     public void addingBuildingsToListView(){
@@ -130,24 +149,50 @@ public class GamePlay extends AppCompatActivity {
             bList[i] = (String.valueOf(buildings[i][0]) + " with level: " + String.valueOf(buildings[i][1]));
         }
 
-        ArrayAdapter buildingListAdapter = new ArrayAdapter(this, R.layout.building_simple_row, bList);
+        buildingListAdapter = new ArrayAdapter(this, R.layout.building_simple_row, bList);
         buildingsListView.setAdapter(buildingListAdapter);
 
-        System.out.println("ADDED BUILDING LIST TO LISTVIEW");
+//        System.out.println("ADDED BUILDING LIST TO LISTVIEW");
     }
 
-    public void raiseBuildingLevel(String name, int level){
-        buildingsDatabase.open();
-        buildingsDatabase.raiseCurrentBuildingLevelByOne(name, level);
-        buildingsDatabase.close();
-
-        System.out.println("RAISED LEVEL");
+    public void sendingListViewPosition(String position){
+        Intent i = new Intent(this, BuildingChosen.class);
+        i.putExtra("sendingPosition", position);
+        i.putExtra("sendingName", buildings[Integer.parseInt(position)][0]);
+        i.putExtra("sendingLevel", buildings[Integer.parseInt(position)][1]);
+        i.putExtra("sendingDescription", buildings[Integer.parseInt(position)][2]);
+        i.putExtra("sendingProduct", buildings[Integer.parseInt(position)][3]);
+        i.putExtra("sendingProductionTime", buildings[Integer.parseInt(position)][4]);
+        startActivity(i);
     }
 
-    @Override
-    public void onResume(){
-        super.onResume();
-        addingBuildingsToListView();
+    public void getGoodsQuant(){
+        int stoneQuant = 1;
+        int woodQuant = 2;
+        int foodQuant = 3;
+        int waterQuant = 4;
+        goodsDatabase.open();
+        Cursor cursor = goodsDatabase.getRecords();
+        goodsQuant = new String[6];
+        cursor.moveToFirst();
+        goodsQuant[0] = cursor.getString(stoneQuant);
+        goodsQuant[1] = cursor.getString(woodQuant);
+        goodsQuant[2] = cursor.getString(foodQuant);
+        goodsQuant[3] = cursor.getString(waterQuant);
+        cursor.close();
+        goodsDatabase.close();
+        System.out.println("Stone quant: " + goodsQuant[0] + ", wood: " + goodsQuant[1] + ", food: " + goodsQuant[2] + ", water: " + goodsQuant[3]);
+    }
 
+    public void raiseGoodsQuant(){
+        int newStoneQuant = 100;
+        int newWoodQuant = 110;
+        int newFoodQuant = 120;
+        int newWaterQuant = 130;
+        goodsDatabase.open();
+        goodsDatabase.raiseGoods(Integer.parseInt(goodsQuant[0]),Integer.parseInt(goodsQuant[1]),Integer.parseInt(goodsQuant[2]),Integer.parseInt(goodsQuant[3]),newStoneQuant, newWoodQuant, newFoodQuant, newWaterQuant);
+        goodsDatabase.close();
+        getGoodsQuant();
+//        System.out.println("Stone quant: " + goodsQuant[0] + ", wood: " + goodsQuant[1] + ", food: " + goodsQuant[2] + ", water: " + goodsQuant[3]);
     }
 }

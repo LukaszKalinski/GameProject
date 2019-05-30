@@ -20,6 +20,7 @@
         <activity android:name=".CreateAccountActivity"></activity>
         <activity android:name=".FirstLogin"></activity>
         <activity android:name=".GamePlay"></activity>
+        <activity android:name=".BuildingChosen"></activity>
 
 
     </application>
