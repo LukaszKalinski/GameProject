@@ -11,6 +11,7 @@ import android.util.Log;
 import static com.example.game.LoginActivity.loggedUserName;
 
 public class BuildingsDatabase {
+
     public static final String KEY_ROWID = "_id";
     public static final String KEY_BUILDINGNAME = "BuildingName";
     public static final String KEY_XCOORD = "XCoord";
@@ -21,8 +22,8 @@ public class BuildingsDatabase {
     public static final String KEY_PRODUCTIONTIME = "ProductionTime";
     private static final String TAG = "DBAdapter";
 
-    private static final String DATABASE_NAME = "Buildingsof" + loggedUserName;
-    private static final String DATABASE_TABLE = loggedUserName;
+    private static final String DATABASE_NAME = "BuildingsOf" + loggedUserName;
+    private static final String DATABASE_TABLE = "Buildings" + loggedUserName;
     private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_CREATE =
@@ -52,7 +53,7 @@ public class BuildingsDatabase {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            System.out.println(DATABASE_CREATE);
+            System.out.println("BuildingsDatabase: " + DATABASE_CREATE);
             db.execSQL(DATABASE_CREATE);
         }
 
@@ -114,6 +115,8 @@ public class BuildingsDatabase {
             db.update(DATABASE_TABLE, newProductionTime, KEY_BUILDINGNAME + "=?", names);
         }
 
-    }
+}
+
+
 
 

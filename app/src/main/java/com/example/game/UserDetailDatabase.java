@@ -11,15 +11,17 @@ import android.util.Log;
 import static com.example.game.LoginActivity.loggedUserName;
 
 public class UserDetailDatabase {
+
     public static final String KEY_ROWID = "_id";
-    public static final String KEY_LOGGED_NAME = "Logged";
+    public static final String KEY_LOGGED_NAME = "LoggedIn";
     public static final String KEY_VILLAGE_TYPE = "Village";
     public static final String KEY_XCOORD = "XCoord";
     public static final String KEY_YCOORD = "YCoord";
     private static final String TAG = "DBAdapter";
 
-    private static final String DATABASE_NAME = "Detailsof" + loggedUserName;
-    private static final String DATABASE_TABLE = "Detailed" + loggedUserName;
+    private static final String DATABASE_NAME = "DetailedOf" + loggedUserName; //TODO null value..
+    private static final String DATABASE_TABLE = "Details" + loggedUserName; //TODO null value..
+
     private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_CREATE =
@@ -30,12 +32,12 @@ public class UserDetailDatabase {
                     + KEY_YCOORD +")";
 
     private Context context = null;
-    private UserDetailDatabase.DatabaseHelper DBHelper;
+    private DatabaseHelper DBHelper;
     private SQLiteDatabase db;
 
     public UserDetailDatabase(Context context) {
         this.context = context;
-        DBHelper = new UserDetailDatabase.DatabaseHelper(context);
+        DBHelper = new DatabaseHelper(context);
     }
 
     private static class DatabaseHelper extends SQLiteOpenHelper {
@@ -46,7 +48,7 @@ public class UserDetailDatabase {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            System.out.println(DATABASE_CREATE);
+            System.out.println("userDetailDatabase: " + DATABASE_CREATE);
             db.execSQL(DATABASE_CREATE);
         }
         @Override
@@ -75,13 +77,13 @@ public class UserDetailDatabase {
         return cursor;
     }
 
-    public void AddData(String login, String villageType, int xCoord, int yCoord){
+    public long AddData(String login, String villageType, int xCoord, int yCoord){
         ContentValues newData = new ContentValues();
         newData.put(KEY_LOGGED_NAME, login);
         newData.put(KEY_VILLAGE_TYPE, villageType);
-        newData.put(KEY_XCOORD, xCoord);
-        newData.put(KEY_YCOORD, yCoord);
-        db.insert(DATABASE_TABLE, null, newData);
+        newData.put(KEY_XCOORD, String.valueOf(xCoord));
+        newData.put(KEY_YCOORD, String.valueOf(yCoord));
+        return db.insert(DATABASE_TABLE, null, newData);
     }
 
 }

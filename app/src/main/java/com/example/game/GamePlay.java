@@ -11,8 +11,6 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import static com.example.game.FirstLogin.firstChosenVillageType;
-
 public class GamePlay extends AppCompatActivity {
 
     BuildingsDatabase buildingsDatabase = new BuildingsDatabase(this);
@@ -92,8 +90,8 @@ public class GamePlay extends AppCompatActivity {
             System.out.println("DATABASE IS EMPTY");
             buildingsDatabase.AddBuilding(
                     "Quarry",
-                    String.valueOf(firstChosenVillageType.coordX),
-                    String.valueOf(firstChosenVillageType.coordY),
+                    String.valueOf(userDatas[2]),
+                    String.valueOf(userDatas[3]),
                     "1",
                     "QuarryMakeStones",
                     "Stone",
@@ -102,8 +100,8 @@ public class GamePlay extends AppCompatActivity {
 
             buildingsDatabase.AddBuilding(
                     "Forester",
-                    String.valueOf(firstChosenVillageType.coordX),
-                    String.valueOf(firstChosenVillageType.coordY),
+                    String.valueOf(userDatas[2]),
+                    String.valueOf(userDatas[3]),
                     "1",
                     "ForesterMakeWoods",
                     "Wood",
@@ -112,8 +110,8 @@ public class GamePlay extends AppCompatActivity {
 
             buildingsDatabase.AddBuilding(
                     "Homestead",
-                    String.valueOf(firstChosenVillageType.coordX),
-                    String.valueOf(firstChosenVillageType.coordY),
+                    String.valueOf(userDatas[2]),
+                    String.valueOf(userDatas[3]),
                     "1",
                     "HomesteadMakeFood",
                     "Food",
@@ -121,8 +119,8 @@ public class GamePlay extends AppCompatActivity {
             );
             buildingsDatabase.AddBuilding(
                     "Deep well",
-                    String.valueOf(firstChosenVillageType.coordX),
-                    String.valueOf(firstChosenVillageType.coordY),
+                    String.valueOf(userDatas[2]),
+                    String.valueOf(userDatas[3]),
                     "1",
                     "DeepWellMakeWater",
                     "Water",

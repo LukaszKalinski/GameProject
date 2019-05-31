@@ -46,7 +46,7 @@ public class GoodsDatabase {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-            System.out.println(DATABASE_CREATE);
+            System.out.println("GoodsDatabase: " + DATABASE_CREATE);
             db.execSQL(DATABASE_CREATE);
         }
 

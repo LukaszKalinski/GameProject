@@ -29,6 +29,7 @@ public class FirstLogin extends AppCompatActivity {
     UserDetailDatabase userDetailDatabase = new UserDetailDatabase(this);
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -112,14 +113,13 @@ public class FirstLogin extends AppCompatActivity {
                         }
 
                         createFirstVillageType();
-                        createUserDetails(loggedUserName, firstChosenVillageType.getType(), firstChosenVillageType.coordX, firstChosenVillageType.coordY);
+                        createFirstGoodsDb();
+                        createUserDetails(); //TODO Problem with DB (Null name)
                         Intent intent = new Intent(FirstLogin.this, GamePlay.class);
                         startActivity(intent);
                     }
                 }
             });
-
-            createFirstGoodsDb();
 
     }
 
@@ -144,12 +144,15 @@ public class FirstLogin extends AppCompatActivity {
         villageDatabase.close();
     }
 
-    public void createUserDetails(String login, String villageType, int xCoord, int yCoord){
+    public void createUserDetails(){
         userDetailDatabase.open();
+        String villageType = firstChosenVillageType.getType();
+        int xs = firstChosenVillageType.coordX;
+        int ys = firstChosenVillageType.coordY;
         if (userDetailDatabase.getRecords().getCount()>0){
             System.out.println("User Details Database already exists");
         } else {
-            userDetailDatabase.AddData(login, villageType, xCoord, yCoord);
+            userDetailDatabase.AddData(loggedUserName, villageType, xs, ys);
         }
         userDetailDatabase.close();
     }

@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText username;
     EditText password;
     public static String loggedUserName;
-    UserDetailDatabase userDb;
+    GoodsDatabase goodsDb = new GoodsDatabase(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,8 +26,6 @@ public class LoginActivity extends AppCompatActivity {
         okButton = (Button) findViewById(R.id.loginActOkButton);
         username = (EditText) findViewById(R.id.loginEditText);
         password = (EditText) findViewById(R.id.passwordEditText);
-
-        userDb = new UserDetailDatabase(this);
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,11 +47,14 @@ public class LoginActivity extends AppCompatActivity {
                         if(dbUser.Login(username.getText().toString(), password.getText().toString()))
                         {
                             loggedUserName = username.getText().toString();
+                            System.out.println("LoggedUserName: " + loggedUserName);
                             Toast.makeText(LoginActivity.this,"Successfully Logged In As Player: " + loggedUserName, Toast.LENGTH_LONG).show();
 
-                            userDatabaseCheck();
+                            goodsDbCheck();
+
 //                            Intent intent = new Intent(LoginActivity.this, FirstLogin.class);
 //                            startActivity(intent);
+
 
                         }else{
                             Toast.makeText(LoginActivity.this,"Invalid Username/Password", Toast.LENGTH_LONG).show();
@@ -70,15 +71,16 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void userDatabaseCheck(){
-        userDb.open();
-        if (userDb.getRecords().getCount()>0) {
-            Intent intent = new Intent(this, GamePlay.class);
+    public void goodsDbCheck(){
+        goodsDb.open();
+        if (goodsDb.getRecords().getCount()>0){
+            Intent intent = new Intent(LoginActivity.this, GamePlay.class);
             startActivity(intent);
         } else {
-            Intent intent = new Intent(this, FirstLogin.class);
+            Intent intent = new Intent(LoginActivity.this, FirstLogin.class);
             startActivity(intent);
         }
-        userDb.close();
+        goodsDb.close();
     }
+
 }
