@@ -86,6 +86,7 @@ public class GamePlay extends AppCompatActivity {
         super.onResume();
         refreshingBuildingsList();
         addingBuildingsToListView();
+        getGoodsQuant();
 
 //        goodThread.interrupt();
 
