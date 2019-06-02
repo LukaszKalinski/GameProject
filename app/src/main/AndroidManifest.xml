@@ -21,6 +21,7 @@
         <activity android:name=".FirstLogin"></activity>
         <activity android:name=".GamePlay"></activity>
         <activity android:name=".BuildingChosen"></activity>
+        <activity android:name=".QuizForGoods"></activity>
 
 
     </application>

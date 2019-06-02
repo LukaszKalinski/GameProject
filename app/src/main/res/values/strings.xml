@@ -23,6 +23,7 @@
     <string name="gamePlay">Game Play</string>
     <string name="buildingsList">Existing buildings list: </string>
     <string name="availableGoods">Available Goods: </string>
+    <string name="quizGoods"> QUIZ for Goods</string>
 
     //Building Detail
     <string name="buildingDetailDescription">Description: </string>
@@ -30,4 +31,7 @@
     <string name="buildingDetailProductionTime">Production Time: </string>
     <string name="buildingDetailLevel">Current Level: </string>
     <string name="expandBuildingBtn">Expand building (+1 level)</string>
+
+    //Quiz
+    <string name="quizHeader">What is the result?</string>
 </resources>

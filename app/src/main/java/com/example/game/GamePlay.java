@@ -29,7 +29,9 @@ public class GamePlay extends AppCompatActivity {
     TextView woodQuantTextView;
     TextView foodQuantTextView;
     TextView waterQuantTextView;
-    Button raisingGoodsBtn;
+    Button quizGoodsBtn;
+
+    Thread goodThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,7 +44,7 @@ public class GamePlay extends AppCompatActivity {
         woodQuantTextView = (TextView) findViewById(R.id.woodQuantTextView);
         foodQuantTextView = (TextView) findViewById(R.id.foodQuantTextView);
         waterQuantTextView = (TextView) findViewById(R.id.waterQuantTextView);
-        raisingGoodsBtn = (Button) findViewById(R.id.raisingGoods);
+        quizGoodsBtn = (Button) findViewById(R.id.quizGoods);
 
         getUserData();
         gamePlayHeader.setText("Logged as player: " + userDatas[0]);
@@ -63,12 +65,19 @@ public class GamePlay extends AppCompatActivity {
             }
         });
 
-        raisingGoodsBtn.setOnClickListener(new View.OnClickListener() {
+        quizGoodsBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               raiseGoodsQuant();
+               //QUIZ
+                Intent intent = new Intent(GamePlay.this, QuizForGoods.class);
+                startActivity(intent);
             }
         });
+
+        goodsThreads(0);
+        goodsThreads(1);
+        goodsThreads(2);
+        goodsThreads(3);
 
     }
 
@@ -78,6 +87,11 @@ public class GamePlay extends AppCompatActivity {
         refreshingBuildingsList();
         addingBuildingsToListView();
 
+//        goodThread.interrupt();
+
+        System.out.println("OPENED THREADS: " + String.valueOf(Thread.activeCount()));
+//        resumeGoodsThreads();
+        System.out.println("OPENED THREADS: " + String.valueOf(Thread.activeCount()));
 
     }
 
@@ -210,11 +224,7 @@ public class GamePlay extends AppCompatActivity {
         System.out.println("Stone quant: " + goodsQuant[0] + ", wood: " + goodsQuant[1] + ", food: " + goodsQuant[2] + ", water: " + goodsQuant[3]);
     }
 
-    public void raiseGoodsQuant(){
-        int newStoneQuant = 100;
-        int newWoodQuant = 110;
-        int newFoodQuant = 120;
-        int newWaterQuant = 130;
+    public void raiseGoodsQuant(int newStoneQuant, int newWoodQuant, int newFoodQuant, int newWaterQuant){
         goodsDatabase.open();
         goodsDatabase.raiseGoods(Integer.parseInt(goodsQuant[0]),Integer.parseInt(goodsQuant[1]),Integer.parseInt(goodsQuant[2]),Integer.parseInt(goodsQuant[3]),newStoneQuant, newWoodQuant, newFoodQuant, newWaterQuant);
         goodsDatabase.close();
@@ -271,5 +281,58 @@ public class GamePlay extends AppCompatActivity {
                 ", village: " + userDatas[1] +
                 ", xCoord: " + userDatas[2] +
                 ", yCoord: " + userDatas[3]);
+    }
+
+    public void goodsThreads(int i){
+        final int number = i;
+        goodThread = new Thread() {
+
+            final int timeStamp = Integer.parseInt(buildings[number][4])*1000;
+            @Override
+            public void run() {
+                try {
+                    while (!isInterrupted()) {
+                        Thread.sleep(timeStamp);
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                System.out.println("THREAD building: " + buildings[number][0] + ", productionTime: " + buildings[number][4] );
+                                getGoodsQuant();
+
+                                switch (number){
+                                    case 0:
+                                        raiseGoodsQuant(1,0,0,0);
+                                        break;
+                                    case 1:
+                                        raiseGoodsQuant(0,1,0,0);
+                                        break;
+                                    case 2:
+                                        raiseGoodsQuant(0,0,1,0);
+                                        break;
+                                    case 3:
+                                        raiseGoodsQuant(0,0,0,1);
+                                        break;
+                                }
+
+//                                boolean ifTimeStampChange = (timeStamp) == Integer.parseInt(buildings[number][4])*1000;
+//                                System.out.println(String.valueOf(ifTimeStampChange));
+                            }
+                        });
+                    }
+                } catch (InterruptedException e) {
+                }
+            }
+        };
+
+        goodThread.start();
+
+        //TODO update productionTime on resume
+    }
+
+    public void resumeGoodsThreads(){
+//        goodsThreads(0);
+//        goodsThreads(1);
+//        goodsThreads(2);
+//        goodsThreads(3);
     }
 }

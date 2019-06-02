@@ -66,9 +66,6 @@ public class UserDetailDatabase {
     {
         System.out.println("UserDetailDatabase LoggedUserName: " + loggedUserName);
         System.out.println("UserDetailDatabase: " + DBNAME + ", " + DBTABLE);
-
-        DBNAME = "DetailedOf" + loggedUserName; //TODO null value..
-        DBTABLE = "Details" + loggedUserName; //TODO null value..
         db = DBHelper.getWritableDatabase();
     }
 

@@ -27,7 +27,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/raisingGoods" />
+        app:layout_constraintTop_toBottomOf="@+id/quizGoods" />
 
     <TextView
         android:id="@+id/availableGoods"
@@ -142,14 +142,14 @@
         app:layout_constraintStart_toEndOf="@+id/good2" />
 
     <Button
-        android:id="@+id/raisingGoods"
+        android:id="@+id/quizGoods"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:background="@color/colorPrimary"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:text="Add Goods"
+        android:text="@string/quizGoods"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.904"
         app:layout_constraintStart_toStartOf="parent"

@@ -114,7 +114,7 @@ public class FirstLogin extends AppCompatActivity {
 
                         createFirstVillageType();
                         createFirstGoodsDb();
-                        createUserDetails(); //TODO Problem with DB (Null name)
+                        createUserDetails();
                         Intent intent = new Intent(FirstLogin.this, GamePlay.class);
                         startActivity(intent);
                     }
