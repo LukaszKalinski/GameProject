@@ -15,7 +15,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText username;
     EditText password;
     public static String loggedUserName;
-    GoodsDatabase goodsDb = new GoodsDatabase(this);
+    UserDetailDatabase usersGetDB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,11 +49,8 @@ public class LoginActivity extends AppCompatActivity {
                             loggedUserName = username.getText().toString();
                             System.out.println("LoggedUserName: " + loggedUserName);
                             Toast.makeText(LoginActivity.this,"Successfully Logged In As Player: " + loggedUserName, Toast.LENGTH_LONG).show();
-
-                            goodsDbCheck();
-
-//                            Intent intent = new Intent(LoginActivity.this, FirstLogin.class);
-//                            startActivity(intent);
+                            usersGetDB =  new UserDetailDatabase(LoginActivity.this);
+                            usersDbCheck();
 
 
                         }else{
@@ -71,16 +68,16 @@ public class LoginActivity extends AppCompatActivity {
 
     }
 
-    public void goodsDbCheck(){
-        goodsDb.open();
-        if (goodsDb.getRecords().getCount()>0){
+    public void usersDbCheck(){
+        usersGetDB.open();
+        if (usersGetDB.getRecords().getCount()>0){
             Intent intent = new Intent(LoginActivity.this, GamePlay.class);
             startActivity(intent);
         } else {
             Intent intent = new Intent(LoginActivity.this, FirstLogin.class);
             startActivity(intent);
         }
-        goodsDb.close();
+        usersGetDB.close();
     }
 
 }

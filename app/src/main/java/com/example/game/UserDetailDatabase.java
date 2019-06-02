@@ -12,6 +12,10 @@ import static com.example.game.LoginActivity.loggedUserName;
 
 public class UserDetailDatabase {
 
+
+    private static  String DBNAME = "DetailUser" + loggedUserName;
+    private static  String DBTABLE = "details" + loggedUserName;
+
     public static final String KEY_ROWID = "_id";
     public static final String KEY_LOGGED_NAME = "LoggedIn";
     public static final String KEY_VILLAGE_TYPE = "Village";
@@ -19,13 +23,10 @@ public class UserDetailDatabase {
     public static final String KEY_YCOORD = "YCoord";
     private static final String TAG = "DBAdapter";
 
-    private static final String DATABASE_NAME = "DetailedOf" + loggedUserName; //TODO null value..
-    private static final String DATABASE_TABLE = "Details" + loggedUserName; //TODO null value..
-
     private static final int DATABASE_VERSION = 1;
 
     private static final String DATABASE_CREATE =
-            "create table " + DATABASE_TABLE + " (_id integer primary key autoincrement, "
+            "create table " + DBTABLE + " (_id integer primary key autoincrement, "
                     + KEY_LOGGED_NAME +", "
                     + KEY_VILLAGE_TYPE +", "
                     + KEY_XCOORD +", "
@@ -43,7 +44,7 @@ public class UserDetailDatabase {
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
         DatabaseHelper(Context context) {
-            super(context, DATABASE_NAME, null, DATABASE_VERSION);
+            super(context, DBNAME, null, DATABASE_VERSION);
         }
 
         @Override
@@ -56,13 +57,18 @@ public class UserDetailDatabase {
             Log.w(TAG, "Upgrading database from version " + oldVersion
                     + " to "
                     + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE);
+            db.execSQL("DROP TABLE IF EXISTS " + DBTABLE);
             onCreate(db);
         }
     }
 
     public void open() throws SQLException
     {
+        System.out.println("UserDetailDatabase LoggedUserName: " + loggedUserName);
+        System.out.println("UserDetailDatabase: " + DBNAME + ", " + DBTABLE);
+
+        DBNAME = "DetailedOf" + loggedUserName; //TODO null value..
+        DBTABLE = "Details" + loggedUserName; //TODO null value..
         db = DBHelper.getWritableDatabase();
     }
 
@@ -73,7 +79,7 @@ public class UserDetailDatabase {
     }
 
     public Cursor getRecords(){
-        Cursor cursor = db.query(DATABASE_TABLE, null, null, null, null, null, null);
+        Cursor cursor = db.query(DBTABLE, null, null, null, null, null, null);
         return cursor;
     }
 
@@ -83,7 +89,7 @@ public class UserDetailDatabase {
         newData.put(KEY_VILLAGE_TYPE, villageType);
         newData.put(KEY_XCOORD, String.valueOf(xCoord));
         newData.put(KEY_YCOORD, String.valueOf(yCoord));
-        return db.insert(DATABASE_TABLE, null, newData);
+        return db.insert(DBTABLE, null, newData);
     }
 
 }
