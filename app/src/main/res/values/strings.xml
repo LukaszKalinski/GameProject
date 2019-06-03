@@ -30,6 +30,7 @@
     <string name="buildingDetailProduct">Product: </string>
     <string name="buildingDetailProductionTime">Production Time: </string>
     <string name="buildingDetailLevel">Current Level: </string>
+    <string name="buildingDetailNeed">Need Goods: </string>
     <string name="expandBuildingBtn">Expand building (+1 level)</string>
 
     //Quiz

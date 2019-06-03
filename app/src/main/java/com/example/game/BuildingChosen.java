@@ -23,6 +23,7 @@ public class BuildingChosen extends AppCompatActivity {
     TextView buildingDetailProduct;
     TextView buildingDetailProductionTime;
     TextView buildingDetailLevel;
+    TextView buildingDetailNeeds;
     Button expandBuildingBtn;
 
     GoodsDatabase goodsDatabase = new GoodsDatabase(this);
@@ -32,6 +33,8 @@ public class BuildingChosen extends AppCompatActivity {
     public int neededWood;
     public int neededFood;
     public int neededWater;
+    public int needed;
+    public int defaultNeed = -200;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,10 @@ public class BuildingChosen extends AppCompatActivity {
         buildingDetailLevel = (TextView) findViewById(R.id.buildingDetailLevel);
         buildingDetailLevel.setText(String.valueOf(clickedLevel));
         expandBuildingBtn = (Button) findViewById(R.id.expandBuildingBtn);
+        buildingDetailNeeds = (TextView) findViewById(R.id.buildingDetailNeeds);
+
+        raisingNeeds(clickedLevel);
+        buildingDetailNeeds.setText(String.valueOf(-needed));
 
         expandBuildingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +79,10 @@ public class BuildingChosen extends AppCompatActivity {
             }
         });
 
+
+
+
+
     }
 
     public void raiseBuildingLevel(String name, int level, int productionTime){
@@ -80,10 +91,45 @@ public class BuildingChosen extends AppCompatActivity {
         int currentWood = Integer.parseInt(goodsQuant[1]);
         int currentFood = Integer.parseInt(goodsQuant[2]);
         int currentWater = Integer.parseInt(goodsQuant[3]);
-        int needed;
-        int defaultNeed = -200;
+        raisingNeeds(level);
+        if (-neededStone <= currentStone && -neededWood <= currentWood && -neededFood <= currentFood && -neededWater <= currentWater){
+            buildingsDatabase.open();
+            buildingsDatabase.raiseCurrentBuildingLevelByOne(name, level, productionTime);
+            raiseGoodsQuant(neededStone, neededWood, neededFood, neededWater);
+            buildingsDatabase.close();
+            Toast.makeText(BuildingChosen.this,"Level Raised", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(BuildingChosen.this,"You Do Not Have Enough Goods", Toast.LENGTH_LONG).show();
+        }
 
 
+    }
+
+    public void getGoodsQuant(){
+        int stoneQuant = 1;
+        int woodQuant = 2;
+        int foodQuant = 3;
+        int waterQuant = 4;
+        goodsDatabase.open();
+        Cursor cursor = goodsDatabase.getRecords();
+        goodsQuant = new String[6];
+        cursor.moveToFirst();
+        goodsQuant[0] = cursor.getString(stoneQuant);
+        goodsQuant[1] = cursor.getString(woodQuant);
+        goodsQuant[2] = cursor.getString(foodQuant);
+        goodsQuant[3] = cursor.getString(waterQuant);
+        cursor.close();
+        goodsDatabase.close();
+    }
+
+    public void raiseGoodsQuant(int newStoneQuant, int newWoodQuant, int newFoodQuant, int newWaterQuant){
+        goodsDatabase.open();
+        goodsDatabase.raiseGoods(Integer.parseInt(goodsQuant[0]),Integer.parseInt(goodsQuant[1]),Integer.parseInt(goodsQuant[2]),Integer.parseInt(goodsQuant[3]),newStoneQuant, newWoodQuant, newFoodQuant, newWaterQuant);
+        goodsDatabase.close();
+        getGoodsQuant();
+    }
+
+    public void raisingNeeds(int level){
         switch (level){ //from level x to level+1
             case 1:
                 needed = defaultNeed;
@@ -135,41 +181,6 @@ public class BuildingChosen extends AppCompatActivity {
                 neededWater = needed;
                 break;
         }
-
-        if (-neededStone <= currentStone && -neededWood <= currentWood && -neededFood <= currentFood && -neededWater <= currentWater){
-            buildingsDatabase.open();
-            buildingsDatabase.raiseCurrentBuildingLevelByOne(name, level, productionTime);
-            raiseGoodsQuant(neededStone, neededWood, neededFood, neededWater);
-            buildingsDatabase.close();
-            Toast.makeText(BuildingChosen.this,"Level Raised", Toast.LENGTH_LONG).show();
-        } else {
-            Toast.makeText(BuildingChosen.this,"You Do Not Have Enough Goods", Toast.LENGTH_LONG).show();
-        }
-
-
     }
 
-    public void getGoodsQuant(){
-        int stoneQuant = 1;
-        int woodQuant = 2;
-        int foodQuant = 3;
-        int waterQuant = 4;
-        goodsDatabase.open();
-        Cursor cursor = goodsDatabase.getRecords();
-        goodsQuant = new String[6];
-        cursor.moveToFirst();
-        goodsQuant[0] = cursor.getString(stoneQuant);
-        goodsQuant[1] = cursor.getString(woodQuant);
-        goodsQuant[2] = cursor.getString(foodQuant);
-        goodsQuant[3] = cursor.getString(waterQuant);
-        cursor.close();
-        goodsDatabase.close();
-    }
-
-    public void raiseGoodsQuant(int newStoneQuant, int newWoodQuant, int newFoodQuant, int newWaterQuant){
-        goodsDatabase.open();
-        goodsDatabase.raiseGoods(Integer.parseInt(goodsQuant[0]),Integer.parseInt(goodsQuant[1]),Integer.parseInt(goodsQuant[2]),Integer.parseInt(goodsQuant[3]),newStoneQuant, newWoodQuant, newFoodQuant, newWaterQuant);
-        goodsDatabase.close();
-        getGoodsQuant();
-    }
 }
