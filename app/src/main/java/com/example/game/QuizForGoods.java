@@ -43,13 +43,63 @@ public class QuizForGoods extends AppCompatActivity {
         a = (int) (Math.random()*100);
         b = (int) (Math.random()*100);
         c = a + b;
-        d = c - (int) (Math.max(Math.random()*3,1));
-        e = c + (int) (Math.max(Math.random()*3,1));
+        switch((int)(Math.random()*2)) {
+            case 0:
+                d = c - (int) (Math.max(Math.random()*3,1));
+                break;
+            default:
+                d = c + (int) (Math.max(Math.random()*3,1));
+                break;
+        }
+        switch((int)(Math.random()*2)) {
+            case 0:
+                e = c - (int) (Math.max(Math.random()*5,1));
+                if (e == d){
+                    e = d - 1;
+                }
+                break;
+            default:
+                e = c + (int) (Math.max(Math.random()*5,1));
+                if (e == d){
+                    e = d + 1;
+                }
+                break;
+        }
 
         quizHeader2.setText(String.valueOf(a) + " + " + String.valueOf(b) + " = [?]");
-        answer1.setText(String.valueOf(d));
-        answer2.setText(String.valueOf(c));
-        answer3.setText(String.valueOf(e));
+
+        switch((int)(Math.random()*5)){
+            case 0:
+                answer1.setText(String.valueOf(c));
+                answer2.setText(String.valueOf(d));
+                answer3.setText(String.valueOf(e));
+                break;
+            case 1:
+                answer1.setText(String.valueOf(c));
+                answer2.setText(String.valueOf(e));
+                answer3.setText(String.valueOf(d));
+                break;
+            case 2:
+                answer1.setText(String.valueOf(d));
+                answer2.setText(String.valueOf(c));
+                answer3.setText(String.valueOf(e));
+                break;
+            case 3:
+                answer1.setText(String.valueOf(d));
+                answer2.setText(String.valueOf(e));
+                answer3.setText(String.valueOf(c));
+                break;
+            case 4:
+                answer1.setText(String.valueOf(e));
+                answer2.setText(String.valueOf(c));
+                answer3.setText(String.valueOf(d));
+                break;
+            default:
+                answer1.setText(String.valueOf(e));
+                answer2.setText(String.valueOf(d));
+                answer3.setText(String.valueOf(c));
+                break;
+        }
 
         answer1.setOnClickListener(new View.OnClickListener() {
             @Override

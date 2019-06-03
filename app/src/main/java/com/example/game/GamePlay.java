@@ -110,7 +110,7 @@ public class GamePlay extends AppCompatActivity {
                     "1",
                     "QuarryMakeStones",
                     "Stone",
-                    "300"
+                    "6000"
             );
 
             buildingsDatabase.AddBuilding(
@@ -120,7 +120,7 @@ public class GamePlay extends AppCompatActivity {
                     "1",
                     "ForesterMakeWoods",
                     "Wood",
-                    "300"
+                    "6000"
             );
 
             buildingsDatabase.AddBuilding(
@@ -130,7 +130,7 @@ public class GamePlay extends AppCompatActivity {
                     "1",
                     "HomesteadMakeFood",
                     "Food",
-                    "300"
+                    "6000"
             );
             buildingsDatabase.AddBuilding(
                     "Deep well",
@@ -139,7 +139,7 @@ public class GamePlay extends AppCompatActivity {
                     "1",
                     "DeepWellMakeWater",
                     "Water",
-                    "300"
+                    "6000"
             );
             buildingsDatabase.close();
 
